@@ -1,6 +1,9 @@
 const User = require('../Models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+dotenv.config()
+const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 module.exports.register = (req, res) => {
     const userDetails = req.body;
@@ -66,7 +69,7 @@ module.exports.login = (req, res) => {
 
                 if (bcrypt.compareSync(userDetails.password, result.password)) {
 
-                    const token = jwt.sign(userDetails.email, "very_long_secret_key");
+                    const token = jwt.sign(userDetails.email, SECRET_KEY);
 
                     res.status(200).json({ message: "Logged in as " + result.email + " and token is : " + token })
                 } else {
