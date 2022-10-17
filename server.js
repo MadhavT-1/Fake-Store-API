@@ -11,10 +11,12 @@ app.use(express.json())
 
 const userRoutes = require('./Routes/UserRoutes')
 const productRoutes = require('./Routes/ProductRoutes')
+const cartRoutes = require('./Routes/CartRoutes')
 
 
 app.use('/user', userRoutes)
 app.use('/products', productRoutes)
+app.use('/cart', cartRoutes)
 
 app.get('/', (req, res) => {
     res.send({ message: "Connected" })
