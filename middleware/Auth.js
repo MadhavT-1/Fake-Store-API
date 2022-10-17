@@ -10,6 +10,7 @@ const auth = (req, res, next) => {
 
         if (token) {
             const user = jwt.verify(token, SECRET_KEY);
+            req.email = user.email;
             req.id = user._id;
         }
         else {

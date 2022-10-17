@@ -67,9 +67,13 @@ module.exports.login = (req, res) => {
         User.findOne({ email: userDetails.email })
             .then((result) => {
 
+                console.log('====================================');
+                console.log(result);
+                console.log('====================================');
+
                 if (bcrypt.compareSync(userDetails.password, result.password)) {
 
-                    const token = jwt.sign(userDetails.email, SECRET_KEY);
+                    const token = jwt.sign({ email: result.email, id: result._id }, SECRET_KEY);
 
                     res.status(200).json({ message: "Logged in as " + result.email + " and token is : " + token })
                 } else {
